@@ -22,3 +22,22 @@ if (filters) {
     }
   });
 }
+
+const moodForm = document.querySelector('#mood-form');
+if (moodForm) {
+  const choices = {
+    minecraft: {name: 'Minecraft', text: 'Tvůj směr je tvoření. Podívej se, jak Minecraft spojuje stavění s průzkumem světa.', image: 'staveni.svg'},
+    stardew: {name: 'Stardew Valley', text: 'Tvůj směr je vlastní tempo. Seznam se s farmařením, rybařením a životem v městečku.', image: 'farma.svg'},
+    hollow: {name: 'Hollow Knight', text: 'Tvůj směr je objevování. Čeká propojený svět, nové schopnosti a náročnější souboje.', image: 'jeskyne.svg'}
+  };
+  moodForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const value = new FormData(moodForm).get('mood');
+    const choice = choices[value];
+    if (!choice) return;
+    const result = document.querySelector('#mood-result');
+    // Only values from the fixed choices above are inserted.
+    result.innerHTML = `<img src="${choice.image}" alt="Ilustrace vybraného herního směru" width="800" height="600"><div><p class="eyebrow">KOMPAS UKAZUJE NA</p><h2>${choice.name}</h2><p>${choice.text}</p><a class="text-link" href="hry.html#${value}">Prohlédnout hru v knihovně →</a></div>`;
+    result.hidden = false;
+  });
+}
